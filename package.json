@@ -20,5 +20,8 @@
   "homepage": "https://github.com/matt-gross-27/zookeeper#readme",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
