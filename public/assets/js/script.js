@@ -1,5 +1,26 @@
 const $animalForm = document.querySelector('#animal-form');
 
+const postAnimal = function(animalObj) {
+  fetch('/api/animals', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(animalObj)
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      alert(`Error: ${response.statusText}`);
+    })
+    .then(postResponse => {
+      console.log(postResponse);
+      alert(`Thanks for adding an animal!`);
+    })
+}
+
 const handleAnimalFormSubmit = event => {
   event.preventDefault();
 
@@ -25,6 +46,7 @@ const handleAnimalFormSubmit = event => {
     personalityTraits.push(selectedTraits[i].value);
   }
   const animalObject = { name, species, diet, personalityTraits };
+  postAnimal(animalObject);
 
 };
 
