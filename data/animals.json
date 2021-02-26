@@ -137,6 +137,15 @@
         "loving"
       ],
       "id": "13"
+    },
+    {
+      "name": "James",
+      "species": "Diggity Dog",
+      "diet": "herbivore",
+      "personalityTraits": [
+        "anxious"
+      ],
+      "id": "14"
     }
   ]
 }

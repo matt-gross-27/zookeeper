@@ -1,6 +1,10 @@
+// DOM elements
 const $animalForm = document.querySelector('#animal-form');
+const $zookeeperForm = document.querySelector('#zookeeper-form');
 
-const postAnimal = function(animalObj) {
+
+// ~~~~~ post requests ~~~~~ //
+const postAnimal = animalObj => {
   fetch('/api/animals', {
     method: 'POST',
     headers: {
@@ -9,18 +13,45 @@ const postAnimal = function(animalObj) {
     },
     body: JSON.stringify(animalObj)
   })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
+    .then(res => {
+      if (res.ok) {
+        return res.json();
       }
-      alert(`Error: ${response.statusText}`);
+      alert(`Error: ${res.statusText}`);
     })
     .then(postResponse => {
       console.log(postResponse);
-      alert(`Thanks for adding an animal!`);
+      if(postResponse) {
+        alert(`Thanks for adding an animal!`);
+      }
     })
-}
+};
 
+const postZookeeper = zookeeperObj => {
+  fetch('/api/zookeepers', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(zookeeperObj)
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      alert(`Error: ${res.statusText}`)
+    })
+    .then(postResponse => {
+      console.log(postResponse);
+      if(postResponse) {
+        alert(`Thanks for adding a zookeeper!`);
+      }
+    });
+};
+
+
+// ~~~~~ event handlers ~~~~~ //
 const handleAnimalFormSubmit = event => {
   event.preventDefault();
 
@@ -47,7 +78,21 @@ const handleAnimalFormSubmit = event => {
   }
   const animalObject = { name, species, diet, personalityTraits };
   postAnimal(animalObject);
-
 };
 
+const handleZookeeperFormSubmit = event => {
+  event.preventDefault();
+
+  //get new zookeeper data and organize it
+  const name = $zookeeperForm.querySelector('[name="zookeeper-name"]').value;
+  const age = parseInt($zookeeperForm.querySelector('[name="age"]').value);
+  const favoriteAnimal = $zookeeperForm.querySelector('[name="favorite-animal"]').value;
+
+  const zookeeperObject = { name, age, favoriteAnimal };
+  postZookeeper(zookeeperObject);
+};
+
+
+// ~~~~~ event listeners ~~~~~ //
 $animalForm.addEventListener('submit', handleAnimalFormSubmit);
+$zookeeperForm.addEventListener('submit', handleZookeeperFormSubmit);

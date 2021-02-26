@@ -1,6 +1,4 @@
-const { response } = require("express");
 const fs = require("fs");
-const { animals } =require("../data/animals")
 
 const {
   filterByQuery,
@@ -8,6 +6,8 @@ const {
   createNewAnimal,
   validateAnimal
 } = require ('../lib/animals');
+
+const { animals } =require("../data/animals")
 
 jest.mock('fs');
 
